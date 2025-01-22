@@ -11,10 +11,10 @@ struct MovieView: View {
     @StateObject var viewModel = MovieViewModel(httpClient: HTTPClient())
    
     var body: some View {
-        List(viewModel.movieDetail){
+        List(viewModel.movies){
             movie in
             
-            Text(movie.originalTitle)
+            Text(movie.title)
             
             
         }

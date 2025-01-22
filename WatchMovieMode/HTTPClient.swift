@@ -15,7 +15,7 @@ enum NetworkError: Error {
 class HTTPClient {
     
     func fetchMovies() -> AnyPublisher<[Movie], Error> {
-        let baseurl = "https://api.watchmode.com/v1/list-titles/?apiKey=4W91729MO3Pgl5FrkwfLQMD6xN9lsJFvMviVSv6g&types=movie"
+        let baseurl = "https://api.watchmode.com/v1/list-titles/?apiKey=SrFY7ay5N6Z1LaY6qAcwBokVVgDPNjBmQiaE1oqY&types=movie"
         guard let url = URL(string: baseurl)
         else {
             return Fail(error: NetworkError.badUrl).eraseToAnyPublisher()
@@ -32,7 +32,7 @@ class HTTPClient {
             .eraseToAnyPublisher()
     }
     func fetchMovieDetail(id: Int) -> AnyPublisher<[MovieDetail], Error> {
-        let baseurl =         "https://api.watchmode.com/v1/title/\(id)/details/?apiKey=4W91729MO3Pgl5FrkwfLQMD6xN9lsJFvMviVSv6g&append_to_response=sources"
+        let baseurl =         "https://api.watchmode.com/v1/title/\(id)/details/?apiKey=SrFY7ay5N6Z1LaY6qAcwBokVVgDPNjBmQiaE1oqY&append_to_response=sources"
 
         guard let url = URL(string: baseurl)
         else {
