@@ -11,9 +11,10 @@ import Combine
 class MovieViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var searchText: String = ""
-    
+    @Published var movieDetail: [MovieDetail] = []
     private let httpClient: HTTPClient
     private var cancellables = Set<AnyCancellable>()
+    
     
     init(httpClient: HTTPClient) {
         self.httpClient = httpClient
@@ -24,9 +25,24 @@ class MovieViewModel: ObservableObject {
     private func loadMovies() {
         httpClient.fetchMovies()
             .sink { _ in } receiveValue: { [weak self] movies in
+                
                 self?.movies = movies
+                
+                
                
             }
             .store(in: &cancellables)
     }
+     func loadMovieDetail(id : Int) {
+        httpClient.fetchMovieDetail(id: id)
+            .sink { _ in } receiveValue: { [weak self] movieDetail in
+                self?.movieDetail = movieDetail
+               
+                
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    
 }

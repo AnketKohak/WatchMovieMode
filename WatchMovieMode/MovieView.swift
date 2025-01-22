@@ -9,12 +9,16 @@ import SwiftUI
 
 struct MovieView: View {
     @StateObject var viewModel = MovieViewModel(httpClient: HTTPClient())
+   
     var body: some View {
-        List(viewModel.movies){
+        List(viewModel.movieDetail){
             movie in
-            Text(movie.title)
+            
+            Text(movie.originalTitle)
+            
             
         }
+        
     }
 }
 

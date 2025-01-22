@@ -11,7 +11,7 @@ import SwiftUI
 struct WatchMovieModeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MovieView()
         }
     }
 }
