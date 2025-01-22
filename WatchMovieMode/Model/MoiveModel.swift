@@ -35,19 +35,21 @@ struct MovieDetailResponse: Codable {
 }
 
 struct MovieDetail: Codable,Identifiable {
-    let id: Int
-    let title, originalTitle, plotOverview, type: String
-    let  year: Int
-    let releaseDate, imdbID: String
-    let tmdbID: Int
-    let tmdbType: String
-    let genres: [Int]
-    let genreNames: [String]
-    let userRating: Double
-    let criticScore: Int
-    let usRating: String
-    let poster: String
-    let originalLanguage: String
+    let id: Int?
+    let title, originalTitle, plotOverview, type: String?
+    let  year: Int?
+    let runtime_minutes:Int?
+    let releaseDate, imdbID: String?
+    let tmdbID: Int?
+    let tmdbType: String?
+    let genres: [Int]?
+    let genreNames: [String]?
+    let userRating: Double?
+    let criticScore: Int?
+    let usRating: String?
+    let poster: String?
+    let posterMedium: String?
+    let originalLanguage: String?
    
     
 
@@ -56,7 +58,7 @@ struct MovieDetail: Codable,Identifiable {
         case originalTitle = "original_title"
         case plotOverview = "plot_overview"
         case type
-       
+       case runtime_minutes
         case year
         
         case releaseDate = "release_date"
@@ -69,6 +71,7 @@ struct MovieDetail: Codable,Identifiable {
         case criticScore = "critic_score"
         case usRating = "us_rating"
         case poster
+        case posterMedium
         case originalLanguage = "original_language"
    
         
