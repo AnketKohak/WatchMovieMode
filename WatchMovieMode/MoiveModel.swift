@@ -46,13 +46,9 @@ struct MovieDetail: Codable,Identifiable {
     let userRating: Double
     let criticScore: Int
     let usRating: String
-    let poster, backdrop: String
+    let poster: String
     let originalLanguage: String
-    let similarTitles, networks: [Int]
-    let networkNames: [String]
-    let trailer: String
-    let trailerThumbnail: String
-    let relevancePercentile: Double
+   
     
 
     enum CodingKeys: String, CodingKey {
@@ -72,14 +68,9 @@ struct MovieDetail: Codable,Identifiable {
         case userRating = "user_rating"
         case criticScore = "critic_score"
         case usRating = "us_rating"
-        case poster, backdrop
+        case poster
         case originalLanguage = "original_language"
-        case similarTitles = "similar_titles"
-        case networks
-        case networkNames = "network_names"
-        case trailer
-        case trailerThumbnail = "trailer_thumbnail"
-        case relevancePercentile = "relevance_percentile"
+   
         
     }
 }

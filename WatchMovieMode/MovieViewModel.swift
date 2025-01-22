@@ -37,7 +37,7 @@ class MovieViewModel: ObservableObject {
         httpClient.fetchMovieDetail(id: id)
             .sink { _ in } receiveValue: { [weak self] movieDetail in
                 self?.movieDetail = movieDetail
-               
+               print(movieDetail)
                 
             }
             .store(in: &cancellables)

@@ -11,12 +11,16 @@ struct MovieView: View {
     @StateObject var viewModel = MovieViewModel(httpClient: HTTPClient())
    
     var body: some View {
-        List(viewModel.movies){
-            movie in
-            
-            Text(movie.title)
-            
-            
+        NavigationStack{
+            List(viewModel.movies){
+                movie in
+                NavigationLink{
+                    MovieDetialView(movieId: movie.id)
+                }label:{
+                    Text(movie.title)
+                }
+                
+            }
         }
         
     }
