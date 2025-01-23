@@ -16,7 +16,7 @@ class HTTPClient {
     // MARK: - FetchingListOfItmes
     func fetchMovies() -> AnyPublisher<([Movie],[Movie]), Error> {
         // MARK: Movie
-        let movieListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=movie&limit=5"
+        let movieListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=movie&limit=1"
         
         guard let url = URL(string: movieListUrl)
         else {
@@ -34,7 +34,7 @@ class HTTPClient {
             }
             .eraseToAnyPublisher()
         // MARK: Show
-        let tvShowListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=tv_series&limit=5"
+        let tvShowListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=tv_series&limit=1"
         
         guard let url = URL(string: tvShowListUrl)
         else {

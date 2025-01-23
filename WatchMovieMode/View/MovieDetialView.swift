@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MovieDetialView: View {
-    // MARK: - Varible
+    // MARK: - Variable
     @StateObject var viewModel = MovieViewModel()
-    let movieId:Int
+    let movie: MovieDetail
     let languageMapping: [String: String] = [
         "en": "English",
         "de": "German",
@@ -23,74 +23,99 @@ struct MovieDetialView: View {
         "hi": "Hindi",
         "du": "Dutch",
     ]
+    
     func getLanguageName(from code: String) -> String {
         return languageMapping[code] ?? "Unknown Language"
     }
+    
     // MARK: - Body
     var body: some View {
-        if let movie = viewModel.movieDetail.first(where:{ $0.id == movieId}) {
-            VStack(spacing: 14){
-                // MARK: PosterImage
-                if let url = URL(string: movie.posterMedium!){
-                    
+        
+            VStack(spacing: 14) {
+                // MARK: Poster Image
+                if let posterURL = movie.posterMedium, let url = URL(string: posterURL) {
                     AsyncImage(url: url) { image in
-                        image.resizable().scaledToFit()
+                        image.resizable()
+                            .scaledToFit()
                             .cornerRadius(12)
                     } placeholder: {
                         ProgressView()
-                    }.frame(height: 400)
-                        .clipped()
+                    }
+                    .frame(height: 400)
+                    .clipped()
                 }
-                HStack{
-                    // MARK: OriginalTitle
-                    Text(movie.originalTitle!)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
-                        .lineLimit(2)
+                
+                HStack {
+                    // MARK: Original Title
+                    if let originalTitle = movie.originalTitle {
+                        Text(originalTitle)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                            .lineLimit(2)
+                    }
                     Spacer()
-                    // MARK: runtime_minutes
-//                    Text("\(movie.runtime_minutes!)  min")
-//                        .foregroundStyle(.black)
-//                        .font(.title)
-//                        .fontWeight(.semibold)
+                    
+//                     MARK: Runtime Minutes
+                    if let runtimeMinutes = movie.runtime_minutes {
+                        Text("\(runtimeMinutes) min")
+                            .foregroundStyle(.black)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    }
+                    
                     Spacer()
-                    // MARK: userRating
-                    Text(movie.userRating!.toString())
-                        .foregroundStyle(.black)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(4)
-                        .background(.yellow)
-                        .cornerRadius(12)
+                    
+                    // MARK: User Rating
+                    if let userRating = movie.userRating {
+                        Text(userRating.toString())
+                            .foregroundStyle(.black)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(4)
+                            .background(.yellow)
+                            .cornerRadius(12)
+                    }
                 }
-                HStack{
-                    // MARK: releaseDate
-                    Text("\(movie.releaseDate!)")
-                        .foregroundStyle(.black)
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                
+                HStack {
+                    // MARK: Release Date
+                    if let releaseDate = movie.releaseDate {
+                        Text(releaseDate)
+                            .foregroundStyle(.black)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
                     Spacer()
-                    // MARK: originalLanguage
-                    Text(getLanguageName(from: movie.originalLanguage!))
-                        .font(.title3)
-                        .foregroundStyle(.black)
-                        .fontWeight(.semibold)
+                    
+                    // MARK: Original Language
+                    if let originalLanguage = movie.originalLanguage {
+                        Text(getLanguageName(from: originalLanguage))
+                            .font(.title3)
+                            .foregroundStyle(.black)
+                            .fontWeight(.semibold)
+                    }
                 }
-                // MARK: genreNames
-                Text("\(movie.genreNames!.map{ $0.capitalized}.joined(separator: ","))").foregroundStyle(.gray.opacity(7))
-                // MARK: plotOverview
-                Text(movie.plotOverview!)
-                    .font(.body)
-                    .foregroundStyle(.black.opacity(0.9))
+                
+                // MARK: Genre Names
+                if let genreNames = movie.genreNames {
+                    Text(genreNames.map { $0.capitalized }.joined(separator: ", "))
+                        .foregroundStyle(.gray.opacity(7))
+                }
+                
+                // MARK: Plot Overview
+                if let plotOverview = movie.plotOverview {
+                    Text(plotOverview)
+                        .font(.body)
+                        .foregroundStyle(.black.opacity(0.9))
+                }
+                
                 Spacer()
-            }.background(.gray.opacity(0.1))
-                .cornerRadius(10)
-                .padding(16)
-        }
+            }
+            .background(.gray.opacity(0.1))
+            .cornerRadius(10)
+            .padding(16)
+        
     }
 }
 
-#Preview {
-    MovieDetialView(movieId: 1498670)
-}

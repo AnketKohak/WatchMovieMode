@@ -39,7 +39,7 @@ struct MovieView: View {
                             ForEach(selectedTab == .movies ? viewModel.movieDetail : viewModel.tvShowDetail,id:\.id){
                                 movie in
                                 NavigationLink{
-                                    MovieDetialView(movieId: movie.id!)
+                                    MovieDetialView(movie: movie)
                                 }label:{
                                     MovieRowView(movie: movie)
                                 }

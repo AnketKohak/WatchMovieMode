@@ -27,9 +27,9 @@ struct MovieRowView: View {
     }
     // MARK: - Body
     var body: some View {
-        HStack(alignment: .top){
+        HStack(alignment: .top) {
             // MARK: poster
-            if let url = URL(string: movie.poster!){
+            if let posterURL = movie.poster, let url = URL(string: posterURL) {
                 AsyncImage(url: url) { image in
                     image.resizable().scaledToFill()
                         .aspectRatio(2/3, contentMode: .fit)
@@ -39,51 +39,76 @@ struct MovieRowView: View {
                 }.frame(height: 150)
                     .clipped()
             }
-            VStack(alignment: .leading){
-                HStack{
-                    // MARK: originalTitle
-                    Text(movie.originalTitle!)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
-                        .lineLimit(2)
-                    Spacer()
-                    // MARK: userRating
-                    Text(movie.userRating!.toString())
-                        .foregroundStyle(.black)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(4)
-                        .background(.yellow)
-                        .cornerRadius(12)
-                }
-                HStack{
-                    // MARK: releaseDate
-                    Text("\(movie.releaseDate!)")
-                        .foregroundStyle(.black)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    // MARK: originalLanguage
-                    Text(getLanguageName(from: movie.originalLanguage!))
-                        .font(.title3)
-                        .foregroundStyle(.black)
-                        .fontWeight(.semibold)
-                }
-                HStack{
-                    // MARK: genreNames
-                    Text("\(movie.genreNames!.map{ $0.capitalized}.joined(separator: ","))").foregroundStyle(.gray.opacity(7))
-                }
-                // MARK: runtime_minutes
-//                Text("\(movie.runtime_minutes!)  min")
-//                    .foregroundStyle(.black)
-//                    .font(.title)
-//                    .fontWeight(.semibold)
-            }
             
-        }.padding(2)
-            .background(.gray.opacity(0.3)).cornerRadius(12)
+            VStack(alignment: .leading) {
+                HStack(alignment: .firstTextBaseline) {
+                    // MARK: originalTitle
+                    if let originalTitle = movie.originalTitle {
+                        Text(originalTitle)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.4)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Spacer()
+                    
+                    // MARK: userRating
+                    if let userRating = movie.userRating {
+                        Text(userRating.toString())
+                            .foregroundStyle(.black)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(2)
+                            .background(.yellow)
+                            .cornerRadius(12)
+                    }
+                }
+                
+                HStack {
+                    // MARK: releaseDate
+                    if let releaseDate = movie.releaseDate {
+                        Text("\(releaseDate)")
+                            .foregroundStyle(.black)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                    }
+                    
+                    Spacer()
+                    
+                    // MARK: originalLanguage
+                    if let originalLanguage = movie.originalLanguage {
+                        Text(getLanguageName(from: originalLanguage))
+                            .font(.title3)
+                            .foregroundStyle(.black)
+                            .fontWeight(.semibold)
+                    }
+                }
+                
+                HStack {
+                    // MARK: genreNames
+                    if let genreNames = movie.genreNames {
+                        Text("\(genreNames.map { $0.capitalized }.joined(separator: ", "))")
+                            .foregroundStyle(.gray.opacity(7))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                    }
+                }
+                
+//                 MARK: runtime_minutes
+                if let runtimeMinutes = movie.runtime_minutes {
+                    Text("\(runtimeMinutes) min")
+                        .foregroundStyle(.black)
+                        .font(.title)
+                        .fontWeight(.semibold)
+                }
+            }
+        }
+        .padding(2)
+        .background(.gray.opacity(0.3))
+        .cornerRadius(12)
     }
 }
-
-
