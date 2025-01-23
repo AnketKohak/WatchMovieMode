@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MovieView: View {
-    @StateObject var viewModel = MovieViewModel(httpClient: HTTPClient())
-    
+    // MARK: -Variable
+    @StateObject var viewModel = MovieViewModel()
+    // MARK: - Body
     var body: some View {
         NavigationStack{
             ScrollView{
@@ -21,12 +22,10 @@ struct MovieView: View {
                         }label:{
                             MovieRowView(movie: movie)
                         }
-                        
                     }
                 }.padding()
             }.background(.gray.opacity(0.2))
         }
-        
     }
     
 }

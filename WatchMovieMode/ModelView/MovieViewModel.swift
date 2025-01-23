@@ -8,16 +8,16 @@ import SwiftUI
 import Combine
 
 class MovieViewModel: ObservableObject {
+    // MARK: - Variables
     @Published var movies: [Movie] = []
     @Published var movieDetail: [MovieDetail] = []
-    private let httpClient: HTTPClient
+    private let httpClient = HTTPClient()
     private var cancellables = Set<AnyCancellable>()
 
-    init(httpClient: HTTPClient) {
-        self.httpClient = httpClient
+    init() {
         loadMovies()
     }
-
+    // MARK: - Movie
     private func loadMovies() {
         httpClient.fetchMovies()
             .sink(receiveCompletion: { completion in
@@ -33,7 +33,7 @@ class MovieViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-
+    // MARK: - MovieDetail
      func loadMovieDetail(id: Int) {
         httpClient.fetchMovieDetail(id: id)
             .sink(receiveCompletion: { completion in
@@ -48,7 +48,7 @@ class MovieViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-
+    // MARK: - AllMoviesDetail
     private func fetchAllMovies() {
         movies.forEach { movie in
             loadMovieDetail(id: movie.id)

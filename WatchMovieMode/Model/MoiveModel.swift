@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - MovieList
 struct MovieResponse: Codable {
         let titles: [Movie]
     enum CodingKeys: String, CodingKey {
@@ -29,7 +31,7 @@ struct Movie: Codable,Identifiable {
         case type
     }
 }
-// MARK: - Movie Deatails section
+// MARK: - MovieDetail
 struct MovieDetailResponse: Codable {
     let movie: [MovieDetail]
 }
@@ -50,8 +52,6 @@ struct MovieDetail: Codable,Identifiable {
     let poster: String?
     let posterMedium: String?
     let originalLanguage: String?
-   
-    
 
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -73,10 +73,7 @@ struct MovieDetail: Codable,Identifiable {
         case poster
         case posterMedium
         case originalLanguage = "original_language"
-   
-        
     }
 }
 
-// MARK: - Source
 
