@@ -10,21 +10,44 @@ import SwiftUI
 struct MovieView: View {
     // MARK: -Variable
     @StateObject var viewModel = MovieViewModel()
+    @State private var selectedTab: Tab = .movies
+    
+    enum Tab {
+        case movies
+        case tvShows
+    }
     // MARK: - Body
     var body: some View {
         NavigationStack{
             ScrollView{
-                LazyVStack(alignment: .leading, spacing: 8){
-                    ForEach(viewModel.movieDetail,id:\.id){
-                        movie in
-                        NavigationLink{
-                            MovieDetialView(movieId: movie.id!)
-                        }label:{
-                            MovieRowView(movie: movie)
+                VStack{
+                    Picker("Select Tab", selection: $selectedTab) {
+                        Text("Movies").tag(Tab.movies)
+                        Text("TV Shows").tag(Tab.tvShows)
+                    }.pickerStyle(SegmentedPickerStyle())
+                        .padding()
+                    
+                    LazyVStack(alignment: .leading, spacing: 8){
+                        if viewModel.isLoading {
+                            ProgressView("Loading...")
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .padding()
+                        } else if let error = viewModel.error {
+                            Text("Error: \(error)")
+                                .foregroundColor(.red)
+                        }else{
+                            ForEach(selectedTab == .movies ? viewModel.movieDetail : viewModel.tvShowDetail,id:\.id){
+                                movie in
+                                NavigationLink{
+                                    MovieDetialView(movieId: movie.id!)
+                                }label:{
+                                    MovieRowView(movie: movie)
+                                }
+                            }
                         }
-                    }
-                }.padding()
-            }.background(.gray.opacity(0.2))
+                    }.padding()
+                }.background(.gray.opacity(0.2))
+            }
         }
     }
     

@@ -75,10 +75,10 @@ struct MovieRowView: View {
                     Text("\(movie.genreNames!.map{ $0.capitalized}.joined(separator: ","))").foregroundStyle(.gray.opacity(7))
                 }
                 // MARK: runtime_minutes
-                Text("\(movie.runtime_minutes!)  min")
-                    .foregroundStyle(.black)
-                    .font(.title)
-                    .fontWeight(.semibold)
+//                Text("\(movie.runtime_minutes!)  min")
+//                    .foregroundStyle(.black)
+//                    .font(.title)
+//                    .fontWeight(.semibold)
             }
             
         }.padding(2)

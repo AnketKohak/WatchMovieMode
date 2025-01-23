@@ -50,10 +50,10 @@ struct MovieDetialView: View {
                         .lineLimit(2)
                     Spacer()
                     // MARK: runtime_minutes
-                    Text("\(movie.runtime_minutes!)  min")
-                        .foregroundStyle(.black)
-                        .font(.title)
-                        .fontWeight(.semibold)
+//                    Text("\(movie.runtime_minutes!)  min")
+//                        .foregroundStyle(.black)
+//                        .font(.title)
+//                        .fontWeight(.semibold)
                     Spacer()
                     // MARK: userRating
                     Text(movie.userRating!.toString())
