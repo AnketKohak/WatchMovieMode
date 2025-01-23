@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieDetialView: View {
     // MARK: - Variable
-    @StateObject var viewModel = MovieViewModel()
+    
     let movie: MovieDetail
     let languageMapping: [String: String] = [
         "en": "English",

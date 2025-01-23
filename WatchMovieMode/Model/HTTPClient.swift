@@ -14,9 +14,10 @@ enum NetworkError: Error {
 
 class HTTPClient {
     // MARK: - FetchingListOfItmes
+    var limit = 10
     func fetchMovies() -> AnyPublisher<([Movie],[Movie]), Error> {
         // MARK: Movie
-        let movieListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=movie&limit=1"
+        let movieListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=zHXWehYzpCQAxw5XHe4x9AIeBw8wDCvgnckM0sLV&types=movie&limit=\(limit)"
         
         guard let url = URL(string: movieListUrl)
         else {
@@ -34,7 +35,7 @@ class HTTPClient {
             }
             .eraseToAnyPublisher()
         // MARK: Show
-        let tvShowListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&types=tv_series&limit=1"
+        let tvShowListUrl = "https://api.watchmode.com/v1/list-titles/?apiKey=zHXWehYzpCQAxw5XHe4x9AIeBw8wDCvgnckM0sLV&types=tv_series&limit=\(limit)"
         
         guard let url = URL(string: tvShowListUrl)
         else {
@@ -59,7 +60,7 @@ class HTTPClient {
     // MARK: - FetchingItemDetail
     func fetchMovieDetail(id: Int) -> AnyPublisher<[MovieDetail], Error> {
         // MARK: MoiveDetail
-        let movieDetailUrl = "https://api.watchmode.com/v1/title/\(id)/details/?apiKey=0BrTP2xXJFMnopwvXknaCb04dixyY9RaxSnDpbZr&append_to_response=sources"
+        let movieDetailUrl = "https://api.watchmode.com/v1/title/\(id)/details/?apiKey=zHXWehYzpCQAxw5XHe4x9AIeBw8wDCvgnckM0sLV&append_to_response=sources"
         
         guard let url = URL(string: movieDetailUrl)
         else {
